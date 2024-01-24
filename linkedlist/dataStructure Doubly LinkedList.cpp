@@ -31,7 +31,6 @@ private:
 	Node *head { };
 	Node *tail { };
 	int length = 0;
-
 	// let's maintain how many nodes
 
 	vector<Node*> debug_data;	// add/remove nodes you use
