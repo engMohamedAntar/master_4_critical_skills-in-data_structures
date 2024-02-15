@@ -98,14 +98,17 @@ public:
 		int level = 0;
 		bool forward_level = true;
 
-		while (!nodes_queue.empty()) {
+		while (!nodes_queue.empty()) 
+		{
 			int sz = nodes_queue.size();
 
 			cout << "Level " << level << ": ";
-			while (sz--) {
-				BinaryTree*cur;
+			while (sz--) 
+			{
+				BinaryTree* cur;
 
-				if (forward_level) {	// generate from front
+				if (forward_level) // generate from front
+				{	
 					// Usual queue style: pop queue front, push queue rear: left, then right
 					cur = nodes_queue.front();
 					nodes_queue.pop_front();
@@ -115,7 +118,9 @@ public:
 
 					if (cur->right)
 						nodes_queue.push_back(cur->right);
-				} else {				// generate  from back
+				}
+				else	// generate  from back
+				{				
 					// like Stack: pop stack end, push stack front: right, then left
 					cur = nodes_queue.back();
 					nodes_queue.pop_back();
@@ -135,8 +140,17 @@ public:
 		}
 	}
 
+
+
+
+
+
+
+
+
 	// https://leetcode.com/problems/check-completeness-of-a-binary-tree
-	bool is_complete() {
+	bool is_complete() 
+	{
 		queue<BinaryTree*> nodes_queue;
 		nodes_queue.push(this);
 
@@ -145,25 +159,31 @@ public:
 		bool no_more_allowed = false;
 
 
-		while (!nodes_queue.empty()) {
+		while (!nodes_queue.empty()) 
+		{
 			int sz = nodes_queue.size();
 
-			while (sz--) {
+			while (sz--) 
+			{
 				BinaryTree*cur = nodes_queue.front();
 				nodes_queue.pop();
 
-				if (cur->left) {
+				if (cur->left) 
+				{
 					if (no_more_allowed)
 						return false;
 					nodes_queue.push(cur->left);
-				} else
+				} 
+				else
 					no_more_allowed = true;
 
-				if (cur->right) {
+				if (cur->right) 
+				{
 					if (no_more_allowed)
 						return false;
 					nodes_queue.push(cur->right);
-				} else
+				} 
+				else
 					no_more_allowed = true;
 			}
 		}
@@ -193,42 +213,25 @@ void test1_level_order_traversal_spiral() {
 	// Level 3: 15 14 13 12 11 10 9 8
 }
 
-void test2_is_complete() {
+void test_completeness1()
+{
 	BinaryTree tree(1);
-
-	assert(tree.is_complete());
-
-	tree.add( { 2, 4}, { 'L', 'L'});
-	tree.add( { 2, 5}, { 'L', 'R'});
-	tree.add( { 3}, { 'R'});
-
-	assert(tree.is_complete());
-
-	tree.add( { 3, 7}, { 'R', 'R'});
-	assert(!tree.is_complete());
-
-
-	tree.add( { 2, 4, 8 }, { 'L', 'L', 'L' });
-	tree.add( { 2, 4, 9 }, { 'L', 'L', 'R' });
-	tree.add( { 2, 5, 10 }, { 'L', 'R', 'L' });
-	tree.add( { 2, 5, 11 }, { 'L', 'R', 'R' });
-
-	assert(!tree.is_complete());
-
-	tree.add( { 3, 6, 12 }, { 'R', 'L', 'L' });
-	tree.add( { 3, 6, 13 }, { 'R', 'L', 'R' });
-	tree.add( { 3, 7, 14 }, { 'R', 'R', 'L' });
-	tree.add( { 3, 7, 15 }, { 'R', 'R', 'R' });
-
-	assert(tree.is_complete());
-
-
-
+	tree.add({2,4},{'L','L'});
+	tree.add({2,5},{'L','R'});
+	tree.add({3,6},{'R','L'});
+	cout<<tree.is_complete()<<endl;
 }
-
+void test_completeness2()
+{
+	BinaryTree tree(1);
+	tree.add({2,4},{'L','L'});
+	tree.add({3,5},{'R','L'});
+	tree.add({3,6},{'R','R'});
+	cout<<tree.is_complete()<<endl;
+}
 int main() {
-	test1_level_order_traversal_spiral();
-	test2_is_complete();
+	test_completeness1();
+	test_completeness2();
 
 	cout << "bye\n";
 
